@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
-from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, AnyUrl, BaseSettings
+from pytz import timezone
 
 
 class Config(BaseSettings):
@@ -15,7 +15,7 @@ class Config(BaseSettings):
     timezone: str
 
     def timezone_info(self):
-        return ZoneInfo(self.timezone)
+        return timezone(self.timezone)
 
 
 class Event(BaseModel):
