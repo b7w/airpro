@@ -178,7 +178,7 @@ class AirPro:
                              # remove tz for driver to skip conversion
                              .replace(tzinfo=None))
                 yield Event(timestamp=timestamp,
-                            tz=tz.key,
+                            tz=str(tz),
                             pm1=row['PM1(ug/m3)'],
                             pm2_5=row['PM2_5(ug/m3)'],
                             pm10=row['PM10(ug/m3)'],
