@@ -4,8 +4,7 @@
 
 \.idea/
 
+/dist
 tmp/
-target/
-*\.egg-info/
 .ipynb_checkpoints/
 .vault

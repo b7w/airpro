@@ -10,8 +10,6 @@ services:
       - CLICKHOUSE_USER=airpro
       - CLICKHOUSE_PASSWORD=airpro
       - CLICKHOUSE_DB=airpro
-    #    volumes:
-    #      - ./data:/var/lib/clickhouse
     ulimits:
       nofile:
         soft: 262144
@@ -19,7 +17,7 @@ services:
     logging:
       driver: json-file
       options:
-        max-file: '4'
+        max-file: '1'
         max-size: '1m'
 
   grafana:
@@ -37,5 +35,5 @@ services:
     logging:
       driver: json-file
       options:
-        max-file: '4'
+        max-file: '1'
         max-size: '1m'
