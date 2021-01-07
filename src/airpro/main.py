@@ -61,7 +61,7 @@ async def on_shutdown(app):
     logging.getLogger('airpro').info('Shutdown..')
 
 
-def main():
+def app_factory():
     config = Config()
 
     app = FastAPI()
@@ -83,7 +83,10 @@ def main():
     return app
 
 
-if __name__ == '__main__':
-    app = main()
-    uvicorn.run(app, host='0.0.0.0', port=5000,
+def main():
+    uvicorn.run(app_factory(), host='0.0.0.0', port=5000,
                 log_level=None, access_log=None, log_config=None)
+
+
+if __name__ == '__main__':
+    main()
