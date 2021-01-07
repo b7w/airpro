@@ -1,0 +1,41 @@
+version: '3'
+services:
+  clickhouse:
+    image: 'yandex/clickhouse-server:20'
+    restart: always
+    ports:
+      - 8123:8123
+      - 9000:9000
+    environment:
+      - CLICKHOUSE_USER=airpro
+      - CLICKHOUSE_PASSWORD=airpro
+      - CLICKHOUSE_DB=airpro
+    #    volumes:
+    #      - ./data:/var/lib/clickhouse
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    logging:
+      driver: json-file
+      options:
+        max-file: '4'
+        max-size: '1m'
+
+  grafana:
+    image: 'grafana/grafana:7.3.6'
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      GF_INSTALL_PLUGINS: 'vertamedia-clickhouse-datasource'
+    volumes:
+      - './grafana-main.ini:/etc/grafana/grafana.ini'
+      - './grafana-datasources.yml:/etc/grafana/provisioning/datasources/provider.yml'
+      - './grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/provider.yml'
+      - './airpro-dashboard.json:/etc/grafana/dashboards/airpro-dashboard.json:rw'
+    logging:
+      driver: json-file
+      options:
+        max-file: '4'
+        max-size: '1m'

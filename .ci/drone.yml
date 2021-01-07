@@ -1,0 +1,33 @@
+---
+kind: pipeline
+type: docker
+name: AirPro CI
+
+steps:
+  - name: Tests and Build
+    pull: always
+    image: python:3.8-slim
+    environment:
+      XDG_CACHE_HOME: tmp/pip
+    commands:
+      - pip3 install poetry
+      - poetry install
+      - poetry run pytest
+      - poetry build
+
+  - name: Build docker
+    pull: always
+    image: plugins/docker
+    settings:
+      registry: registry.b7w.me
+      repo: registry.b7w.me/b7w/airpro
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      dockerfile: .ci/Dockerfile
+      tags: latest
+      bip: 173.17.1.4/24  # For docker in docker
+    when:
+      branch:
+        - master

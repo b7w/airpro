@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "airpro"
+version = "0.1.0"
+description = ""
+authors = ["B7W <b7w@isudo.ru>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pysmb = "^1.2"
+fastapi = "^0.63"
+uvicorn = "^0.13"
+clickhouse-driver = "^0.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6"
+
+[tool.poetry.scripts]
+airpro = 'airpro.main:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
