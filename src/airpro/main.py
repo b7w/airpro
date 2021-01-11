@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import sys
 from functools import partial
 from logging.config import dictConfig
 from typing import List
@@ -52,7 +53,11 @@ dictConfig(LOGGING)
 
 async def on_startup(app):
     logging.getLogger('airpro').info('Starting..')
-    app.state.db.create_schema()
+    try:
+        app.state.db.create_schema()
+    except:
+        logger.exception('Error creating DDL')
+        sys.exit(-1)
     task = app.state.airpro.load_task(asyncio.get_event_loop())
     asyncio.create_task(task)
 

@@ -55,22 +55,22 @@ class Clickhouse:
         sql = """
         CREATE TABLE if NOT EXISTS airpro
         (
-            timestamp      DateTime('UTC'),
+            TIMESTAMP      DateTime('UTC'),
             tz             String,
-            pm2_5          Decimal(3, 2),
+            pm2_5          DECIMAL(3, 2),
             aqi_us         UInt16,
             aqi_ch         UInt16,
-            pm10           Decimal(3, 2),
-            pm1            Decimal(3, 2),
+            pm10           DECIMAL(3, 2),
+            pm1            DECIMAL(3, 2),
             outdoor_aqi_us UInt16,
             outdoor_aqi_ch UInt16,
-            temperature    Decimal(2, 2),
+            temperature    DECIMAL(2, 2),
             humidity       UInt16,
             co2            UInt16
         ) ENGINE = ReplacingMergeTree()
-        PARTITION BY toYYYYMM(timestamp)
-        PRIMARY KEY timestamp
-        ORDER BY (timestamp)
+        PARTITION BY toYYYYMM(TIMESTAMP)
+        PRIMARY KEY TIMESTAMP
+        ORDER BY (TIMESTAMP)
         """
         self._client.execute(sql)
 
@@ -226,5 +226,8 @@ class AirPro:
         delta = Config().refresh_duration
         logger.info('Start task for loading events every %s', delta)
         while loop.is_running():
-            await loop.run_in_executor(None, self.load_modified_files)
+            try:
+                await loop.run_in_executor(None, self.load_modified_files)
+            except Exception as e:
+                logger.warning('Get error in background task: %s', repr(e))
             await asyncio.sleep(delta.total_seconds())
