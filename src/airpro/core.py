@@ -12,6 +12,7 @@ from io import BytesIO, TextIOWrapper
 from typing import Iterable, TypeVar, List, Tuple
 
 from clickhouse_driver import Client
+from pydantic import ValidationError
 from smb.SMBConnection import SMBConnection
 
 from airpro.model import Event, Config
@@ -161,6 +162,7 @@ class AirPro:
                             'Humidity(%RH)', 'CO2(ppm)')
         self._last_read = None
         self._offsets = {}
+        self._skip = 0
 
     def _file2events(self, buffer: BytesIO) -> Iterable[Event]:
         tz = Config().timezone_info()
@@ -177,18 +179,23 @@ class AirPro:
                              .astimezone(timezone.utc)
                              # remove tz for driver to skip conversion
                              .replace(tzinfo=None))
-                yield Event(timestamp=timestamp,
-                            tz=str(tz),
-                            pm1=row['PM1(ug/m3)'],
-                            pm2_5=row['PM2_5(ug/m3)'],
-                            pm10=row['PM10(ug/m3)'],
-                            aqi_us=row['AQI(US)'],
-                            aqi_ch=row['AQI(CN)'],
-                            outdoor_aqi_us=row['Outdoor AQI(US)'],
-                            outdoor_aqi_ch=row['Outdoor AQI(CN)'],
-                            temperature=row['Temperature(C)'],
-                            humidity=row['Humidity(%RH)'],
-                            co2=row['CO2(ppm)'])
+                try:
+                    yield Event(timestamp=timestamp,
+                                tz=str(tz),
+                                pm1=row['PM1(ug/m3)'],
+                                pm2_5=row['PM2_5(ug/m3)'],
+                                pm10=row['PM10(ug/m3)'],
+                                aqi_us=row['AQI(US)'],
+                                aqi_ch=row['AQI(CN)'],
+                                outdoor_aqi_us=row['Outdoor AQI(US)'],
+                                outdoor_aqi_ch=row['Outdoor AQI(CN)'],
+                                temperature=row['Temperature(C)'],
+                                humidity=row['Humidity(%RH)'],
+                                co2=row['CO2(ppm)'])
+                except ValidationError as e:
+                    self._skip += 1
+                    msg = "Validation error №%s, skipping row...\nRow: %s\nError: %s"
+                    logger.warning(msg, self._skip, row, e.errors())
 
     def _load_buffer(self, buf: BytesIO):
         cnt = 0
@@ -229,5 +236,5 @@ class AirPro:
             try:
                 await loop.run_in_executor(None, self.load_modified_files)
             except Exception as e:
-                logger.warning('Get error in background task: %s', repr(e))
+                logger.warning('Get error in background task: %s', repr(e), exc_info=True)
             await asyncio.sleep(delta.total_seconds())
