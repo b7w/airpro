@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -13,25 +16,58 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1610375905541,
   "links": [],
   "panels": [
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
+          "color": {
+            "mode": "palette-classic"
           },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "axisSoftMax": 50,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepBefore",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -45,126 +81,74 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
-      "fill": 10,
-      "fillGradient": 1,
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "hiddenSeries": false,
-      "id": 2,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
+      "id": 1,
       "options": {
-        "alertThreshold": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": true,
       "targets": [
         {
-          "database": "airpro",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "extrapolate": false,
+          "editorMode": "builder",
+          "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
           "intervalFactor": 1,
           "query": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    aqi_us as \"Air Quality\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
-          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    aqi_us as \"Air Quality\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1609951269)\n    AND toDateTime(1610037669)\nORDER BY timestamp",
-          "refId": "C",
+          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    aqi_us as \"Air Quality\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1712943959)\n    AND toDateTime(1712954759)\nORDER BY timestamp",
+          "refId": "A",
           "round": "0s",
-          "skip_comments": false
+          "skip_comments": true
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [
-        {
-          "colorMode": "background6",
-          "fill": true,
-          "fillColor": "rgba(234, 112, 112, 0.12)",
-          "line": false,
-          "lineColor": "rgba(237, 46, 24, 0.60)",
-          "op": "time"
-        }
-      ],
-      "timeShift": null,
       "title": "AQI (US)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": "150",
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": "150",
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": true,
-        "alignLevel": null
-      }
+      "type": "timeseries"
     },
     {
-      "datasource": null,
-      "description": "",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 6,
+      "panels": [],
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "max": 200,
           "min": 0,
@@ -172,15 +156,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "semi-dark-green",
+                "color": "#59ab4d",
                 "value": null
               },
               {
-                "color": "dark-yellow",
+                "color": "semi-dark-yellow",
                 "value": 50
               },
               {
-                "color": "dark-orange",
+                "color": "semi-dark-orange",
                 "value": 100
               },
               {
@@ -188,11 +172,11 @@
                 "value": 150
               },
               {
-                "color": "rgb(131, 3, 54)",
+                "color": "#af0014",
                 "value": 200
               },
               {
-                "color": "rgb(34, 0, 7)",
+                "color": "#4d070f",
                 "value": 300
               }
             ]
@@ -205,10 +189,13 @@
         "h": 6,
         "w": 6,
         "x": 0,
-        "y": 4
+        "y": 6
       },
-      "id": 4,
+      "id": 2,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -217,42 +204,42 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
+          "editorMode": "builder",
           "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
           "intervalFactor": 1,
-          "query": "SELECT avg(aqi_us) as home\n\nFROM $table\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1\n",
-          "rawQuery": "SELECT avg(aqi_us) as home\n\nFROM airpro.airpro\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1",
+          "query": "SELECT avg(aqi_us) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1\n",
+          "rawQuery": "SELECT avg(aqi_us) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1",
           "refId": "A",
           "round": "0s",
-          "skip_comments": true,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "AQI(US)",
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "max": 3000,
           "min": 0,
@@ -260,15 +247,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "semi-dark-green",
+                "color": "#59ab4d",
                 "value": null
               },
               {
-                "color": "dark-yellow",
+                "color": "semi-dark-yellow",
                 "value": 1000
               },
               {
-                "color": "dark-orange",
+                "color": "semi-dark-orange",
                 "value": 1500
               },
               {
@@ -276,11 +263,11 @@
                 "value": 2500
               },
               {
-                "color": "rgb(131, 3, 54)",
+                "color": "#af0014",
                 "value": 5000
               },
               {
-                "color": "rgb(34, 0, 7)",
+                "color": "#4d070f",
                 "value": 20000
               }
             ]
@@ -293,10 +280,13 @@
         "h": 6,
         "w": 6,
         "x": 6,
-        "y": 4
+        "y": 6
       },
-      "id": 5,
+      "id": 7,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -305,42 +295,43 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
+          "editorMode": "builder",
           "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "formattedQuery": "SELECT avg(aqi_us) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1\n",
           "intervalFactor": 1,
-          "query": "SELECT avg(co2) as home\n\nFROM $table\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1\n",
-          "rawQuery": "SELECT avg(co2) as home\n\nFROM airpro.airpro\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1",
+          "query": "SELECT avg(co2) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1\n",
+          "rawQuery": "SELECT avg(co2) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1",
           "refId": "A",
           "round": "0s",
-          "skip_comments": true,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "CO2 (ppm)",
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 1,
           "mappings": [],
           "max": 28,
@@ -349,24 +340,28 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue",
+                "color": "light-blue",
                 "value": null
               },
               {
-                "color": "light-blue",
+                "color": "super-light-orange",
                 "value": 20
               },
               {
-                "color": "super-light-orange",
+                "color": "orange",
                 "value": 22
               },
               {
-                "color": "semi-dark-orange",
+                "color": "dark-orange",
                 "value": 24
               },
               {
-                "color": "semi-dark-red",
+                "color": "#fa4800",
                 "value": 26
+              },
+              {
+                "color": "#fa1400",
+                "value": 27
               }
             ]
           },
@@ -378,10 +373,13 @@
         "h": 6,
         "w": 6,
         "x": 12,
-        "y": 4
+        "y": 6
       },
-      "id": 11,
+      "id": 8,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -390,42 +388,43 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
+          "editorMode": "builder",
           "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "formattedQuery": "SELECT avg(aqi_us) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1\n",
           "intervalFactor": 1,
-          "query": "SELECT avg(temperature) as home\n\nFROM $table\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1\n",
-          "rawQuery": "SELECT avg(temperature) as home\n\nFROM airpro.airpro\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1",
+          "query": "SELECT avg(temperature) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1\n",
+          "rawQuery": "SELECT avg(temperature) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1",
           "refId": "A",
           "round": "0s",
-          "skip_comments": true,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Temperature (C)",
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -433,8 +432,28 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "super-light-blue",
+                "color": "light-blue",
                 "value": null
+              },
+              {
+                "color": "super-light-blue",
+                "value": 20
+              },
+              {
+                "color": "light-blue",
+                "value": 30
+              },
+              {
+                "color": "blue",
+                "value": 40
+              },
+              {
+                "color": "semi-dark-blue",
+                "value": 50
+              },
+              {
+                "color": "dark-blue",
+                "value": 60
               }
             ]
           },
@@ -446,10 +465,13 @@
         "h": 6,
         "w": 6,
         "x": 18,
-        "y": 4
+        "y": 6
       },
-      "id": 12,
+      "id": 9,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -458,62 +480,87 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
+          "editorMode": "builder",
           "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "formattedQuery": "SELECT avg(aqi_us) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1\n",
           "intervalFactor": 1,
-          "query": "SELECT avg(humidity) as home\n\nFROM $table\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1\n",
-          "rawQuery": "SELECT avg(humidity) as home\n\nFROM airpro.airpro\n\nGROUP BY toStartOfFiveMinute(timestamp)\n\nORDER BY toStartOfFiveMinute(timestamp) DESC\n\nLIMIT 1",
+          "query": "SELECT avg(humidity) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1\n",
+          "rawQuery": "SELECT avg(humidity) as home\nFROM airpro\nGROUP BY toStartOfFiveMinute(timestamp)\nORDER BY toStartOfFiveMinute(timestamp) DESC\nLIMIT 1",
           "refId": "A",
           "round": "0s",
-          "skip_comments": true,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Humidity (%RH)",
       "transparent": true,
       "type": "gauge"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 12
       },
-      "id": 15,
+      "id": 5,
       "panels": [],
-      "title": "",
       "type": "row"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
-            "align": null,
-            "filterable": false
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -528,138 +575,98 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ppm"
         },
         "overrides": []
       },
-      "fill": 5,
-      "fillGradient": 2,
       "gridPos": {
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 13
       },
-      "hiddenSeries": false,
-      "id": 6,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
+      "id": 3,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
-          "extrapolate": false,
+          "editorMode": "builder",
+          "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
           "intervalFactor": 1,
           "query": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    co2 as \"CO2\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
-          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    co2 as \"CO2\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1609965001)\n    AND toDateTime(1610051401)\nORDER BY timestamp",
-          "refId": "B",
+          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    co2 as \"CO2\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1712869778)\n    AND toDateTime(1712956178)\nORDER BY timestamp",
+          "refId": "A",
           "round": "0s",
-          "skip_comments": false,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [
-        {
-          "colorMode": "background6",
-          "fill": true,
-          "fillColor": "rgba(234, 112, 112, 0.12)",
-          "line": false,
-          "lineColor": "rgba(237, 46, 24, 0.60)",
-          "op": "time"
-        }
-      ],
-      "timeShift": null,
       "title": "CO2 (ppm)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "ppm",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "dateTimeAsLocal",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
-            "align": null,
-            "filterable": false
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -674,153 +681,111 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "conμgm3"
         },
         "overrides": []
       },
-      "fill": 5,
-      "fillGradient": 2,
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 13
       },
-      "hiddenSeries": false,
-      "id": 9,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
+      "id": 4,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
-          "extrapolate": false,
+          "editorMode": "builder",
+          "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-          "interval": "",
+          "formattedQuery": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    co2 as \"CO2\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
           "intervalFactor": 1,
           "query": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    pm1 as \"PM 1\",\n    pm2_5 as \"PM 2.5\",\n    pm10  as \"PM 10\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
-          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    pm1 as \"PM 1\",\n    pm2_5 as \"PM 2.5\",\n    pm10  as \"PM 10\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1609950518)\n    AND toDateTime(1610036918)\nORDER BY timestamp",
-          "refId": "B",
+          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    pm1 as \"PM 1\",\n    pm2_5 as \"PM 2.5\",\n    pm10  as \"PM 10\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1712870145)\n    AND toDateTime(1712956545)\nORDER BY timestamp",
+          "refId": "A",
           "round": "0s",
-          "skip_comments": false,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [
-        {
-          "colorMode": "background6",
-          "fill": true,
-          "fillColor": "rgba(234, 112, 112, 0.12)",
-          "line": false,
-          "lineColor": "rgba(237, 46, 24, 0.60)",
-          "op": "time"
-        }
-      ],
-      "timeShift": null,
       "title": "PM (μg/m3)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "conμgm3",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "dateTimeAsLocal",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "type": "timeseries"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 22
       },
-      "id": 17,
+      "id": 10,
       "panels": [],
-      "title": "",
       "type": "row"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
-            "align": null,
-            "filterable": false
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -835,140 +800,99 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "celsius"
         },
         "overrides": []
       },
-      "fill": 5,
-      "fillGradient": 2,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 23
       },
-      "hiddenSeries": false,
-      "id": 10,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
+      "id": 11,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
-          "extrapolate": false,
+          "editorMode": "builder",
+          "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-          "interval": "",
+          "formattedQuery": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    co2 as \"CO2\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
           "intervalFactor": 1,
           "query": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    temperature as Temperature\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
-          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    temperature as Temperature\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1609950755)\n    AND toDateTime(1610037155)\nORDER BY timestamp",
-          "refId": "B",
+          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    temperature as Temperature\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1712870433)\n    AND toDateTime(1712956833)\nORDER BY timestamp",
+          "refId": "A",
           "round": "0s",
-          "skip_comments": false,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [
-        {
-          "colorMode": "background6",
-          "fill": true,
-          "fillColor": "rgba(234, 112, 112, 0.12)",
-          "line": false,
-          "lineColor": "rgba(237, 46, 24, 0.60)",
-          "op": "time"
-        }
-      ],
-      "timeShift": null,
       "title": "Temperature (C)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 0,
-          "format": "celsius",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "dateTimeAsLocal",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "",
+      "datasource": {
+        "type": "vertamedia-clickhouse-datasource",
+        "uid": "airpro-clickhouse"
+      },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
-            "align": null,
-            "filterable": false
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -983,152 +907,66 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "humidity"
         },
         "overrides": []
       },
-      "fill": 5,
-      "fillGradient": 2,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 23
       },
-      "hiddenSeries": false,
-      "id": 13,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
+      "id": 12,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "database": "airpro",
-          "dateColDataType": "",
-          "dateLoading": false,
-          "dateTimeColDataType": "timestamp",
+          "datasource": {
+            "type": "vertamedia-clickhouse-datasource",
+            "uid": "airpro-clickhouse"
+          },
           "dateTimeType": "DATETIME",
-          "datetimeLoading": false,
-          "extrapolate": false,
+          "editorMode": "builder",
+          "extrapolate": true,
           "format": "time_series",
-          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
-          "interval": "",
+          "formattedQuery": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    co2 as \"CO2\"\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
           "intervalFactor": 1,
           "query": "SELECT\n    toTimeZone(timestamp, '$timezone') as t,\n    humidity as Humidity\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime($from)\n    AND toDateTime($to)\nORDER BY timestamp",
-          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    humidity as Humidity\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1609964967)\n    AND toDateTime(1610051367)\nORDER BY timestamp",
-          "refId": "B",
+          "rawQuery": "SELECT\n    toTimeZone(timestamp, 'Europe/Moscow') as t,\n    humidity as Humidity\nFROM airpro\nWHERE\n    timestamp BETWEEN toDateTime(1712870481)\n    AND toDateTime(1712956881)\nORDER BY timestamp",
+          "refId": "A",
           "round": "0s",
-          "skip_comments": false,
-          "table": "airpro",
-          "tableLoading": false
+          "skip_comments": true
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [
-        {
-          "colorMode": "background6",
-          "fill": true,
-          "fillColor": "rgba(234, 112, 112, 0.12)",
-          "line": false,
-          "lineColor": "rgba(237, 46, 24, 0.60)",
-          "op": "time"
-        }
-      ],
-      "timeShift": null,
       "title": "Humidity (%RH)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": -1,
-          "format": "humidity",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "dateTimeAsLocal",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "type": "timeseries"
     }
   ],
-  "refresh": "5m",
-  "schemaVersion": 26,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "Europe/Moscow",
-          "value": "Europe/Moscow"
-        },
-        "error": null,
         "hide": 2,
-        "label": null,
+        "label": "",
         "name": "timezone",
-        "options": [
-          {
-            "selected": true,
-            "text": "Europe/Moscow",
-            "value": "Europe/Moscow"
-          }
-        ],
         "query": "Europe/Moscow",
         "skipUrlSync": false,
         "type": "constant"
@@ -1140,8 +978,9 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
-  "title": "AirPro",
-  "uid": "nzkROrAGk",
-  "version": 20
+  "timezone": "Europe/Moscow",
+  "title": "AirPro New",
+  "uid": "bdijm9l0nz94wb",
+  "version": 2,
+  "weekStart": ""
 }

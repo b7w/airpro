@@ -1,7 +1,7 @@
 version: '3'
 services:
   clickhouse:
-    image: 'yandex/clickhouse-server:20'
+    image: 'clickhouse/clickhouse-server:24.3.2'
     restart: always
     ports:
       - 8123:8123
@@ -21,7 +21,7 @@ services:
         max-size: '1m'
 
   grafana:
-    image: 'grafana/grafana:7.3.6'
+    image: 'grafana/grafana:10.4.2-ubuntu'
     restart: always
     ports:
       - 3000:3000

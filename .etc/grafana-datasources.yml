@@ -1,20 +1,19 @@
 apiVersion: 1
 
 deleteDatasources:
-  - name: Clickhouse
+  - name: 'AirPro ClickHouse'
     orgId: 1
 
 datasources:
-  - name: Clickhouse
-    type: vertamedia-clickhouse-datasource
-    access: proxy
-    basicAuth: true
-    basicAuthUser: airpro
-    basicAuthPassword: airpro
-    orgId: 1
-    url: http://clickhouse:8123
-    isDefault: true
-    version: 1
+  - name: 'AirPro ClickHouse'
+    uid: 'airpro-clickhouse'
+    type: 'vertamedia-clickhouse-datasource'
+    access: 'proxy'
+    url: 'http://clickhouse:8123'
     editable: false
+    basicAuth: true
+    basicAuthUser: 'airpro'
     jsonData:
-      defaultDatabase: airpro
+      defaultDatabase: 'airpro'
+    secureJsonData:
+      basicAuthPassword: 'airpro'
