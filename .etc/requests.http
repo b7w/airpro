@@ -1,22 +1,17 @@
 
 ###
-GET http://127.0.0.1:5000/api/v1/settings
+GET http://127.0.0.1:9999/api/v1/settings
 Content-Type: application/json
 
 
 ###
-GET http://127.0.0.1:5000/api/v1/files
+GET http://127.0.0.1:9999/api/v1/files
 Content-Type: application/json
 
 ###
-GET http://127.0.0.1:5000/api/v1/load-modified
+GET http://127.0.0.1:9999/api/v1/load-modified
 Content-Type: application/json
 
 ###
-GET http://127.0.0.1:5000/api/v1/load-last
-Content-Type: application/json
-
-
-###
-GET http://127.0.0.1:5000/api/v1/load-all
+GET http://127.0.0.1:9999/api/v1/load-all
 Content-Type: application/json

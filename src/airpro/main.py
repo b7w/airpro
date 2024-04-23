@@ -89,7 +89,7 @@ def app_factory():
 
 
 def main():
-    uvicorn.run(app_factory(), host='0.0.0.0', port=5000,
+    uvicorn.run(app_factory(), host='0.0.0.0', port=9999,
                 log_level=None, access_log=None, log_config=None)
 
 
