@@ -50,7 +50,7 @@ def timeit(f):
 
 class Clickhouse:
     def __init__(self, dsn):
-        self._client = Client.from_url(dsn)
+        self._client = Client.from_url(str(dsn))
 
     def create_schema(self, ):
         sql = """

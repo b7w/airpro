@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 
-from pydantic import BaseModel, AnyUrl, BaseSettings
+from pydantic import BaseModel, AnyUrl
+from pydantic_settings import BaseSettings
 from pytz import timezone
 
 
