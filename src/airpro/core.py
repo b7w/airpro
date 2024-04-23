@@ -56,7 +56,7 @@ class Clickhouse:
         sql = """
         CREATE TABLE if NOT EXISTS airpro
         (
-            TIMESTAMP      DateTime('UTC'),
+            timestamp      DateTime('UTC'),
             tz             String,
             pm2_5          DECIMAL(3, 2),
             aqi_us         UInt16,
@@ -69,9 +69,9 @@ class Clickhouse:
             humidity       UInt16,
             co2            UInt16
         ) ENGINE = ReplacingMergeTree()
-        PARTITION BY toYYYYMM(TIMESTAMP)
-        PRIMARY KEY TIMESTAMP
-        ORDER BY (TIMESTAMP)
+        PARTITION BY toYYYYMM(timestamp)
+        PRIMARY KEY timestamp
+        ORDER BY (timestamp)
         """
         self._client.execute(sql)
 
