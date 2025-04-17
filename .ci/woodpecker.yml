@@ -1,24 +1,24 @@
----
-kind: pipeline
-type: docker
-name: AirPro CI
-
 steps:
-  - name: Tests and Build
-    pull: always
+  - name: 'Tests and Build'
     image: python:3.12-slim-bookworm
+    pull: true
+    volumes:
+      # ci-cache
+      - '/volumes/system/ci-cache/airpro:/var/cache/ci-cache'
     environment:
-      XDG_CACHE_HOME: tmp/pip
+      XDG_CACHE_HOME: /var/cache/ci-cache
+      POETRY_VIRTUALENVS_PATH: /var/cache/venvs
     commands:
-      - pip3 install poetry
+      - pip3 install 'poetry>=2.1.0,<2.2.0' poetry-plugin-export
       - poetry install
       - poetry run pytest
       - poetry build
       - poetry export -f requirements.txt --output dist/requirements.txt
+    when:
+      event: [ push, pull_request ]
 
-  - name: Build docker
-    pull: always
-    image: plugins/docker
+  - name: 'Build docker'
+    image: woodpeckerci/plugin-docker-buildx:5.2
     settings:
       registry: registry.b7w.me
       repo: registry.b7w.me/b7w/airpro
@@ -27,8 +27,9 @@ steps:
       password:
         from_secret: docker_password
       dockerfile: .ci/Dockerfile
-      tags: latest
+      tags: master
       bip: 173.17.1.4/24  # For docker in docker
     when:
+      event: [ push, pull_request ]
       branch:
         - master

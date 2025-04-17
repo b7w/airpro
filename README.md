@@ -1,7 +1,7 @@
 AirPro
 ======
 
-[![Build Status](https://drone.b7w.me/api/badges/b7w/airpro/status.svg)](https://drone.b7w.me/b7w/airpro)
+[![status-badge](https://woodpecker.b7w.me/api/badges/7/status.svg)](https://woodpecker.b7w.me/repos/7)
 
 Simple analytic tool for AirVisual Pro
 

@@ -13,7 +13,7 @@ fastapi = "^0.110"
 uvicorn = "^0.29"
 clickhouse-driver = "^0.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^8"
 
 [tool.poetry.scripts]
