@@ -7,10 +7,10 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pydantic-settings = "^2.2"
-pysmb = "^1.2"
-fastapi = "^0.110"
-uvicorn = "^0.29"
+pydantic-settings = "^2.8.1"
+pysmb = "^1.2.11"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.1"
 clickhouse-driver = "^0.2"
 
 [tool.poetry.group.dev.dependencies]

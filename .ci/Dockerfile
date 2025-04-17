@@ -1,7 +1,7 @@
 FROM python:3.12-slim-bookworm
 
-ENV VERSION "0.1.0"
-ENV WHEEL "airpro-$VERSION-py3-none-any.whl"
+ENV VERSION="0.1.0"
+ENV WHEEL="airpro-$VERSION-py3-none-any.whl"
 
 
 RUN apt-get update -qq && \
